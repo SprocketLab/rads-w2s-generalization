@@ -16,9 +16,8 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-`requirements.txt` pins the training environment (Python 3.11). The weak model is Qwen2.5-0.5B
-and the strong model is Qwen2.5-7B; both models and the datasets download from the Hugging Face Hub
-on first use, and one 24 GB GPU fits every run.
+`requirements.txt` pins the training environment (Python 3.11). Models and datasets download from
+the Hugging Face Hub on first use, and one 24 GB GPU fits every run.
 
 ## Running experiments
 
@@ -50,6 +49,11 @@ of Table 8, Figures 5 to 7, and the plotting code are not included.
 
 Each sweep writes to `results/<result>/<dataset>/` or a subdirectory of it.
 
+## Repository guide
+
+Each `scripts/score_*.py` file holds one selection method and its variants; Weak Confidence and kNN
+are computed in the driver, `scripts/run_w2s_lora.py`.
+
 ## Using RADS on other data
 
 ```python
@@ -60,11 +64,6 @@ scores = mlp_step1_rp_scores(weak_acts, strong_acts, weak_labels)
 
 `weak_acts` and `strong_acts` hold the representations of the two models for the same points
 (arrays of shape [n, d]), and `weak_labels` holds the binary weak labels.
-
-## Repository guide
-
-Each `scripts/score_*.py` file holds one selection method and its variants; Weak Confidence and kNN
-are computed in the driver, `scripts/run_w2s_lora.py`.
 
 ## License
 
